@@ -103,3 +103,8 @@ app.get("/chat/:id", async (req, res) => {
     res.sendStatus(500).json({ error: e.message });
   }
 });
+
+// to keep the server alive
+app.get("/keep-alive", (req, res) => {
+  res.send("alive");
+});
