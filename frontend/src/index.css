@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+/* WhatsApp Web Colors and Variables */
+:root {
+  --whatsapp-green: #00a884;
+  --whatsapp-dark: #111b21;
+  --whatsapp-light: #ffffff;
+  --whatsapp-gray: #667781;
+  --whatsapp-light-gray: #f0f2f5;
+  --whatsapp-border: #e9edef;
+  --whatsapp-hover: #f5f6f6;
+  --whatsapp-active: #e0f0ff;
+  --chat-bg: #e5ddd5;
+  --bubble-sent-bg: #d9fdd3;
+  --accent-green: #43c960;
+  --link-blue: #027eb5;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Custom focus styles */
+*:focus {
+  outline: none;
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* WhatsApp-like text selection */
+::selection {
+  background: rgba(0, 168, 132, 0.3);
+  color: inherit;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.animate-slide-in {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.3s ease-in-out;
+}
+
+.animate-pulse-green {
+  animation: pulse-green 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  body {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Custom button styles */
+.btn-whatsapp {
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-whatsapp:hover {
+  transform: scale(1.05);
+}
+
+.btn-whatsapp:active {
+  transform: scale(0.95);
+}
+
+/* WhatsApp Web specific styles */
+.bg-whatsapp-green {
+  background-color: var(--whatsapp-green);
+}
+
+.bg-whatsapp-dark {
+  background-color: var(--whatsapp-dark);
+}
+
+.bg-whatsapp-light {
+  background-color: var(--whatsapp-light);
+}
+
+.bg-whatsapp-gray {
+  background-color: var(--whatsapp-gray);
+}
+
+.bg-whatsapp-light-gray {
+  background-color: var(--whatsapp-light-gray);
+}
+
+.bg-whatsapp-border {
+  background-color: var(--whatsapp-border);
+}
+
+.bg-whatsapp-hover {
+  background-color: var(--whatsapp-hover);
+}
+
+.bg-whatsapp-active {
+  background-color: var(--whatsapp-active);
+}
+
+.bg-chat-bg {
+  background-color: var(--chat-bg);
+}
+
+.bg-bubble-sent-bg {
+  background-color: var(--bubble-sent-bg);
+}
+
+.bg-accent-green {
+  background-color: var(--accent-green);
+}
+
+.text-whatsapp-green {
+  color: var(--whatsapp-green);
+}
+
+.text-whatsapp-dark {
+  color: var(--whatsapp-dark);
+}
+
+.text-whatsapp-light {
+  color: var(--whatsapp-light);
+}
+
+.text-whatsapp-gray {
+  color: var(--whatsapp-gray);
+}
+
+.text-accent-green {
+  color: var(--accent-green);
+}
+
+.text-link-blue {
+  color: var(--link-blue);
+}
+
+.border-whatsapp-border {
+  border-color: var(--whatsapp-border);
+}
+
+.shadow-whatsapp-header {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-whatsapp-input {
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.shadow-whatsapp-message {
+  box-shadow: 0 1px 0.5px rgba(0, 0, 0, 0.13);
+}
+
+.shadow-custom {
+  box-shadow: 0 6px 18px rgba(11, 20, 26, 0.15);
+}
+
+.shadow-bubble {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
