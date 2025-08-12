@@ -5,10 +5,9 @@ import { MoreVertical, Phone, Video, ArrowLeft, Search } from "lucide-react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { Bounce, toast } from "react-toastify";
-
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://rapid-quest-assignment-whatsapp-clone.onrender.com");
 
 function ChatArea() {
   const { conversationId } = useParams();
@@ -53,7 +52,7 @@ function ChatArea() {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:3000/chat/${conversationId}`
+        `https://rapid-quest-assignment-whatsapp-clone.onrender.com/chat/${conversationId}`
       );
       setMessages(res.data);
       setContactName(res.data.length > 0 ? res.data[0].customer_name : "");
@@ -77,7 +76,10 @@ function ChatArea() {
       timestamp: new Date().toISOString(),
     };
     try {
-      const res = await axios.post("http://localhost:3000/chat", newMessage);
+      const res = await axios.post(
+        "https://rapid-quest-assignment-whatsapp-clone.onrender.com/chat",
+        newMessage
+      );
       await fetchChatData();
     } catch (e) {
       toast("Error sending message", {

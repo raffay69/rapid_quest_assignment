@@ -4,7 +4,7 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://rapid-quest-assignment-whatsapp-clone.onrender.com");
 
 function Sidebar() {
   const [conversations, setConversations] = useState([]);
@@ -38,9 +38,10 @@ function Sidebar() {
 
   async function fetchChats() {
     try {
-      const res = await axios.get("http://localhost:3000/chat");
+      const res = await axios.get(
+        "https://rapid-quest-assignment-whatsapp-clone.onrender.com/chat"
+      );
       setConversations(res.data);
-      console.log(res.data);
     } catch (e) {
       setError("Error fetching conversations");
     } finally {
