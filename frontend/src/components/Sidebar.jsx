@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { MoreVertical, Search, Filter, Menu, X } from "lucide-react";
-import { useParams, Link } from "react-router-dom";
+import { MoreVertical, Search, Filter } from "lucide-react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 
@@ -10,64 +10,69 @@ function Sidebar() {
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [error, setError] = useState("");
   const { conversationId: activeConversationId } = useParams();
+  const navigate = useNavigate();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(
+    !activeConversationId
+  );
 
   useEffect(() => {
+    const fetchChats = async () => {
+      try {
+        const res = await axios.get(
+          "https://rapid-quest-assignment-whatsapp-clone.onrender.com/chat"
+        );
+        setConversations(res.data);
+      } catch (e) {
+        console.error("Error fetching conversations:", e);
+        setError("Error fetching conversations");
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchChats();
+
+    socket.on("newMessage", fetchChats);
+    socket.on("updateMessage", fetchChats);
+    socket.on("deletedMessage", fetchChats);
+
+    return () => {
+      socket.off("newMessage", fetchChats);
+      socket.off("updateMessage", fetchChats);
+      socket.off("deletedMessage", fetchChats);
+    };
   }, []);
 
   useEffect(() => {
-    socket.on("newMessage", async () => {
-      await fetchChats();
-    });
-    socket.on("updateMessage", async () => {
-      await fetchChats();
-    });
-    socket.on("deletedMessage", async () => {
-      await fetchChats();
-    });
+    setIsMobileMenuOpen(!activeConversationId);
+  }, [activeConversationId]);
 
-    return () => {
-      socket.off("newMessage");
-      socket.off("updatedMessage");
-      socket.off("deletedMessage");
-    };
-  });
-
-  async function fetchChats() {
-    try {
-      const res = await axios.get(
-        "https://rapid-quest-assignment-whatsapp-clone.onrender.com/chat"
-      );
-      setConversations(res.data);
-    } catch (e) {
-      setError("Error fetching conversations");
-    } finally {
-      setLoading(false);
-    }
-  }
+  const handleConversationClick = (conversationId) => {
+    navigate(`/chat/${conversationId}`);
+  };
 
   const filteredConversations = conversations.filter((convo) =>
     convo.customer_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const sidebarClasses = `
-    w-[400px] min-w-[320px] bg-white flex flex-col border-r
-    lg:w-[400px] lg:min-w-[320px] lg:relative lg:z-auto lg:translate-x-0
-    md:w-[350px] md:min-w-[280px] md:relative md:z-auto md:translate-x-0
-    sm:w-full sm:min-w-full sm:absolute sm:inset-0 sm:z-[100] sm:transform sm:transition-transform sm:duration-300 sm:ease-in-out
-    ${isMobileMenuOpen ? "sm:translate-x-0" : "sm:-translate-x-full"}
+    bg-white flex flex-col border-r
+    fixed md:relative inset-0 z-[200]
+    w-full md:w-[350px] lg:w-[400px]
+    md:min-w-[280px] lg:min-w-[320px]
+    transform transition-transform duration-300 ease-in-out
+    ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}
+    md:translate-x-0
   `;
 
   return (
     <>
-      {/* Mobile overlay */}
+      {/* Overlay for closing the menu on mobile by clicking outside */}
       {isMobileMenuOpen && (
         <div
-          className="hidden sm:block fixed inset-0 z-[150]"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          className="fixed inset-0 z-[150] bg-black/50 md:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -86,7 +91,7 @@ function Sidebar() {
           </h2>
           <div className="flex gap-2">
             <button
-              className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
+              className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear hover:bg-gray-200"
               style={{ color: "#667781" }}
             >
               <MoreVertical size={20} />
@@ -117,7 +122,7 @@ function Sidebar() {
             />
           </div>
           <button
-            className="w-10 h-10 border-none bg-transparent rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 btn-whatsapp"
+            className="w-10 h-10 border-none bg-transparent rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 hover:bg-gray-200"
             style={{ color: "#667781" }}
           >
             <Filter size={18} />
@@ -148,11 +153,10 @@ function Sidebar() {
             </div>
           ) : (
             filteredConversations.map((convo) => (
-              <Link
-                to={`/chat/${convo.conversation_id}`}
+              <div
                 key={convo.conversation_id}
-                className="no-underline text-inherit"
-                onClick={() => setIsMobileMenuOpen(false)}
+                className="no-underline text-inherit cursor-pointer"
+                onClick={() => handleConversationClick(convo.conversation_id)}
               >
                 <div
                   className="flex items-center gap-[15px] cursor-pointer border-b p-3 px-4 transition-all duration-200 ease-linear"
@@ -210,7 +214,7 @@ function Sidebar() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))
           )}
         </div>
@@ -218,4 +222,5 @@ function Sidebar() {
     </>
   );
 }
+
 export default Sidebar;

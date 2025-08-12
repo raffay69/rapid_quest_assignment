@@ -102,69 +102,71 @@ function ChatArea() {
     >
       {/* Header */}
       <div
-        className="p-3 px-4 flex items-center border-b"
+        className="p-2 sm:p-3 px-3 sm:px-4 flex items-center border-b"
         style={{
           backgroundColor: "#f0f2f5",
           borderColor: "#e9edef",
           boxShadow: "0 1px 0 0 rgba(0, 0, 0, 0.1)",
         }}
       >
-        <Link to="/" className="lg:hidden md:hidden sm:flex mr-3">
+        <Link to="/" className="lg:hidden md:hidden sm:flex mr-2 sm:mr-3">
           <button
-            className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
+            className="h-8 w-8 sm:h-10 sm:w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
             style={{ color: "#667781" }}
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
           </button>
         </Link>
 
-        <div className="flex items-center gap-[15px] flex-1 min-w-0">
+        <div className="flex items-center gap-2 sm:gap-[15px] flex-1 min-w-0">
           <div
-            className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0 shadow-sm"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center font-bold text-white shrink-0 shadow-sm"
             style={{
               background:
                 "linear-gradient(135deg, #00a884 0%, rgba(0, 168, 132, 0.8) 100%)",
             }}
           >
-            {contactName.charAt(0)}
+            <span className="text-sm sm:text-base">
+              {contactName.charAt(0)}
+            </span>
           </div>
           <div className="flex-1 min-w-0">
             <h3
-              className="text-base font-medium truncate"
+              className="text-sm sm:text-base font-medium truncate"
               style={{ color: "#111b21" }}
             >
               {contactName}
             </h3>
-            <p className="text-[13px]" style={{ color: "#667781" }}>
+            <p className="text-xs sm:text-[13px]" style={{ color: "#667781" }}>
               online
             </p>
           </div>
         </div>
 
-        <div className="flex gap-1">
+        <div className="flex gap-1 sm:gap-2">
           <button
-            className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
+            className="h-8 w-8 sm:h-10 sm:w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
             style={{ color: "#667781" }}
           >
-            <Video size={20} />
+            <Video size={18} className="sm:w-5 sm:h-5" />
           </button>
           <button
-            className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
+            className="h-8 w-8 sm:h-10 sm:w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
             style={{ color: "#667781" }}
           >
-            <Phone size={20} />
+            <Phone size={18} className="sm:w-5 sm:h-5" />
           </button>
           <button
-            className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
+            className="h-8 w-8 sm:h-10 sm:w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
             style={{ color: "#667781" }}
           >
-            <Search size={20} />
+            <Search size={18} className="sm:w-5 sm:h-5" />
           </button>
           <button
-            className="h-10 w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
+            className="h-8 w-8 sm:h-10 sm:w-10 border-none rounded-full flex items-center justify-center cursor-pointer transition-all duration-200 ease-linear btn-whatsapp"
             style={{ color: "#667781" }}
           >
-            <MoreVertical size={20} />
+            <MoreVertical size={18} className="sm:w-5 sm:h-5" />
           </button>
         </div>
       </div>
@@ -174,7 +176,7 @@ function ChatArea() {
         className="flex-1 overflow-y-auto relative"
         style={{ backgroundColor: "#e5ddd5" }}
       >
-        <div className="p-4 px-[8%] sm:px-4 flex flex-col gap-2">
+        <div className="p-2 sm:p-4 px-2 sm:px-[8%] flex flex-col gap-2">
           {loading ? (
             <div className="flex items-center justify-center h-32">
               <div
@@ -211,7 +213,7 @@ function ChatArea() {
                 }`}
               >
                 <div
-                  className={`max-w-[65%] sm:max-w-[85%] py-2 px-3 rounded-lg relative break-words`}
+                  className={`max-w-[75%] sm:max-w-[65%] py-2 px-3 rounded-lg relative break-words`}
                   style={{
                     backgroundColor:
                       message.direction === "outbound" ? "#d9fdd3" : "white",
@@ -219,7 +221,7 @@ function ChatArea() {
                   }}
                 >
                   <p
-                    className="text-[14.2px] leading-[19px] pr-[80px] "
+                    className="text-[14.2px] leading-[19px] pr-[80px] sm:pr-[80px] "
                     style={{ color: "#111b21" }}
                   >
                     {message.content}
