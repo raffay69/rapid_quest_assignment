@@ -97,7 +97,9 @@ app.post("/chat", async (req, res) => {
 app.get("/chat/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await messageModel.find({ conversation_id: id });
+    const data = await messageModel
+      .find({ conversation_id: id })
+      .sort({ timestamp: 1 });
     res.json(data);
   } catch (e) {
     res.sendStatus(500).json({ error: e.message });

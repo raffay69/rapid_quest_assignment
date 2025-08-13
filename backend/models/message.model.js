@@ -15,6 +15,8 @@ const processed_messages_schema = new Schema({
   timestamp: { type: Date },
 });
 
+processed_messages_schema.index({ conversation_id: 1, timestamp: 1 });
+
 export const messageModel = mongoose.model(
   "processed_messages",
   processed_messages_schema
