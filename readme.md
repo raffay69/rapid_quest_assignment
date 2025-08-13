@@ -36,3 +36,7 @@ This project replicates the core functionalities of WhatsApp Web, allowing real-
    - MongoDB Change Stream detects new/updated/deleted data.
    - Backend emits events through Socket.io.
    - Frontend listens for these events and updates instantly.
+
+## Note : 
+- in the given payload files , the conversation_1_message_1 and conversation_1_status_1 are the same.
+- Hence saved the first message with "sent" status
